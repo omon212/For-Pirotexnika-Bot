@@ -98,6 +98,13 @@ async def mikki(message:Message):
 
 #-----------------mikki-----------------#
 
+
+
+
+#-----------------------------#
+
+
+
 @dp.callback_query_handler(text='mikki_minus')
 async def mikki_minus(call:CallbackQuery):
     print(True)
