@@ -9,8 +9,14 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from Keyboards.accses import API_TOKEN
-from Keyboards.default import phone,location,menu,differentbooms
+from Keyboards.default import phone, location, menu, differentbooms, paqildoqturali
+from aiogram.types import InlineKeyboardButton,InlineKeyboardMarkup
 
+
+
+son = {
+    'user_id': 1
+}
 
 logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN, parse_mode='HTML')
@@ -65,6 +71,92 @@ async def blok(message:Message,state:FSMContext):
     await message.answer_photo(photo=url,caption="Tanlang : ",reply_markup=differentbooms)
     await state.finish()
 
+@dp.message_handler(text='Paqildoq 🧨')
+async def paqildoq(message:Message):
+    print("Paqildoq")
+    url = 'https://xabar.uz/static/crop/1/8/920__95_180670630.jpg'
+    await message.answer_photo(photo=url,caption="<b>Paqildoq</b> turini tanlang : ",reply_markup=paqildoqturali)
+@dp.message_handler(text='Mikki')
+async def mikki(message:Message):
+
+    new_buttons = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton('➖', callback_data='mikki_minus'),
+                InlineKeyboardButton("0", callback_data='son'),
+                InlineKeyboardButton('➕', callback_data='mikki_plus'),
+            ],
+            [
+                InlineKeyboardButton("Savatga qo'shish", callback_data='mikki_savat'),
+            ],
+        ],
+
+    )
+
+    url = "https://i.ytimg.com/vi/v3hmWwsTxCk/maxresdefault.jpg"
+    await message.answer_photo(photo=url,caption="Narxi : 10 000 so'm",reply_markup=new_buttons)
+
+#-----------------mikki-----------------#
+
+@dp.callback_query_handler(text='mikki_minus')
+async def mikki_minus(call:CallbackQuery):
+    print(True)
+    user_id = call.message.chat.id
+    fake_son = son.get(user_id, 0)
+    fake_son += 1
+    son[user_id] = fake_son
+    print(son)
+    if fake_son == 0:
+        await call.answer('0 dan ortga qaytib bolmaydi')
+
+    await update_mikki_minus(call.message.chat.id, call.message.message_id, fake_son)
+
+async def update_mikki_minus(chat_id, message_id, new_son):
+    new_buttons = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton('➖', callback_data='mikki_minus'),
+                InlineKeyboardButton(f"{new_son}", callback_data='son'),
+                InlineKeyboardButton('➕', callback_data='mikki_plus')
+            ],
+            [
+                InlineKeyboardButton("Savatga qo'shish", callback_data='mikku_savat'),
+            ],
+        ],
+    )
+
+    # Edit the existing message to update the inline keyboard
+    await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=new_buttons)
+
+
+@dp.callback_query_handler(text='mikki_plus')
+async def mikki_plus(call:CallbackQuery):
+    print(True)
+    user_id = call.message.chat.id
+    fake_son = son.get(user_id, 0)
+    fake_son += 1
+    son[user_id] = fake_son
+    print(son)
+    if fake_son == 0:
+        await call.answer('0 dan ortga qaytib bolmaydi')
+
+    await update_mikki_plus(call.message.chat.id, call.message.message_id, fake_son)
+
+async def update_mikki_plus(chat_id, message_id, new_son):
+    new_buttons = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton('➖', callback_data='mikki_minus'),
+                InlineKeyboardButton(f"{new_son}", callback_data='son'),
+                InlineKeyboardButton('➕', callback_data='mikki_plus')
+            ],
+            [
+                InlineKeyboardButton("Savatga qo'shish", callback_data='mikki_savat'),
+            ],
+        ],
+    )
+
+    await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=new_buttons)
 
 #---------------PACHKA----------------#
 @dp.message_handler(text='Pachka 🧨',state=boom.umumiy)

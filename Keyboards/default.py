@@ -33,17 +33,27 @@ menu = ReplyKeyboardMarkup(
 differentbooms = ReplyKeyboardMarkup(
     keyboard=[
         [
+            KeyboardButton('Salyut 🎇'),
             KeyboardButton("Paqildoq 🧨")
         ],
         [
-            KeyboardButton('Salyut 🎇')
+            KeyboardButton("Svetafor 🚦"),
+            KeyboardButton("Lenta 📼")
         ],
-        [
-            KeyboardButton("Svetafor 🚦")
+    ],
+    resize_keyboard=True
+)
 
+paqildoqturali = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton("Mikki"),
+            KeyboardButton("Titan")
         ],
         [
-            KeyboardButton("ssdgas")
+            KeyboardButton("Atrgul"),
+            KeyboardButton("Chipaq")
         ]
-    ]
+    ],
+    resize_keyboard=True
 )
