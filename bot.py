@@ -9,7 +9,8 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from Keyboards.accses import API_TOKEN
-from Keyboards.default import phone,location,menu
+from Keyboards.default import phone,location,menu,differentbooms
+
 
 logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN, parse_mode='HTML')
@@ -56,12 +57,16 @@ Quyidagi kategoriyalardan birin tanlang:
     await state.finish()
     await boom.umumiy.set()
 
-
+#---------------BLOK----------------#
 
 @dp.message_handler(text='Blok 💣',state=boom.umumiy)
 async def blok(message:Message,state:FSMContext):
-    await message.answer('Tanlang : ')
+    url = 'https://adti.uz/wp-content/uploads/2020/12/2-63.jpg'
+    await message.answer_photo(photo=url,caption="Tanlang : ",reply_markup=differentbooms)
     await state.finish()
+
+
+#---------------PACHKA----------------#
 @dp.message_handler(text='Pachka 🧨',state=boom.umumiy)
 async def pachka(message:Message,state:FSMContext):
     await message.answer('Tanlang : ')
