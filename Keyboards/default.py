@@ -18,3 +18,14 @@ location = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True
 )
+
+menu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton("Blok 💣"),
+            KeyboardButton("Pachka 🧨")
+        ]
+    ],
+    resize_keyboard=True
+
+)
